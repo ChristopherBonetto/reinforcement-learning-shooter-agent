@@ -18,22 +18,22 @@ public class PenguinAgent : Agent
 
     RayPerceptionSensorComponent3D perceptionComponent;
 
-    public override void OnActionReceived(float[] vectorAction)
-    {
-        float forward = vectorAction[0];
-        float leftOrRight = 0f;
+    //public override void OnActionReceived(float[] vectorAction)
+    //{
+    //    float forward = vectorAction[0];
+    //    float leftOrRight = 0f;
 
-        if(vectorAction[1] == 1)
-        {
-            leftOrRight = -1f;
-        }
-        else if(vectorAction[1] == 2)
-        {
-            leftOrRight = 1f;
-        }
+    //    if(vectorAction[1] == 1)
+    //    {
+    //        leftOrRight = -1f;
+    //    }
+    //    else if(vectorAction[1] == 2)
+    //    {
+    //        leftOrRight = 1f;
+    //    }
 
-        AddReward(-1 / MaxStep);
-    }
+    //    AddReward(-1 / MaxStep);
+    //}
 
     public override void OnEpisodeBegin()
     {
