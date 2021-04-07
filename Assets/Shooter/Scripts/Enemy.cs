@@ -8,41 +8,43 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
-    public int startingHealth = 100;
-    public EnemyManager enemyManager;
-    public float speed = 1f;
+    //External arena ref
+    private EnemyManager enemyManager;
+    private Transform m_target;
 
-    private EnvironmentParameters EnvironmentParameters;
-    private int CurrentHealth;
-    private Vector3 StartPosition;
+    //Enemy general values
+    [SerializeField] private int startingHealth = 100;
+    private int currentHealth = 0;
+    private float currentSpeed = 0;
 
-    public float randomRangeX_Pos = 0f;
-    public float randomRangeX_Neg = 0f;
-    public float randomRangeZ_Pos = 0f;
-    public float randomRangeZ_Neg = 0f;
+    //Position values
+    [SerializeField] private float randomRangeX_Pos = 0f;
+    [SerializeField] private float randomRangeX_Neg = 0f;
+    [SerializeField] private float randomRangeZ_Pos = 0f;
+    [SerializeField] private float randomRangeZ_Neg = 0f;
+    private Vector3 startPosition;
 
-    public ShooterAgentBehaviour Agent;
+    //Components and other params
     private NavMeshAgent navAgent;
+    private EnvironmentParameters m_envParams;
 
+    #region Behaviour Cycle
+    private void Awake()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+    }
     private void Start()
     {
-        StartPosition = transform.localPosition;
-        CurrentHealth = startingHealth;
-
-        EnvironmentParameters = Academy.Instance.EnvironmentParameters;
-        speed = EnvironmentParameters.GetWithDefault("enemySpeed", 1f);
-
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.speed = speed;
-
-        Agent.OnEnvironmentReset += Respawn;
+        startPosition = transform.localPosition;
+        m_envParams = Academy.Instance.EnvironmentParameters;
     }
-
     private void FixedUpdate()
     {
-        navAgent.destination = Agent.transform.localPosition;
+        navAgent.SetDestination(m_target.transform.position);
     }
+    #endregion
 
+    #region TakeDamage and Die
     public void GetShot(int damage, ShooterAgentBehaviour shooter)
     {
         ApplyDamage(damage, shooter);
@@ -50,29 +52,49 @@ public class Enemy : MonoBehaviour
 
     private void ApplyDamage(int damage, ShooterAgentBehaviour shooter)
     {
-        CurrentHealth -= damage;
+        currentHealth -= damage;
 
-        if (CurrentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die(shooter);
         }
     }
-
     private void Die(ShooterAgentBehaviour shooter)
     {
         shooter.RegisterKill();
 
         gameObject.SetActive(false);
+
         enemyManager.RegisterDeath();
     }
+    #endregion
 
+    #region Respawn
     public void Respawn()
     {
-        CurrentHealth = startingHealth;
+        currentHealth = startingHealth;
+        ResetEnvInfos();
 
-        speed = EnvironmentParameters.GetWithDefault("enemySpeed", 1f);
-        navAgent.speed = speed;
-
-        transform.localPosition = new Vector3(UnityEngine.Random.Range(randomRangeX_Neg, randomRangeX_Pos), StartPosition.y, UnityEngine.Random.Range(randomRangeZ_Neg, randomRangeZ_Pos));
+        gameObject.SetActive(true);
+        
+        transform.localPosition = new Vector3(UnityEngine.Random.Range(randomRangeX_Neg, randomRangeX_Pos), startPosition.y, UnityEngine.Random.Range(randomRangeZ_Neg, randomRangeZ_Pos));
     }
+    #endregion
+
+    #region Refresh env information
+    private void ResetEnvInfos()
+    {
+        currentSpeed = m_envParams.GetWithDefault("arenaParam_enemiesSpeed", 1f);
+        navAgent.speed = currentSpeed;
+    }
+    #endregion
+
+    #region Spawned enemy
+    public void TakeArenaInfos(EnemyManager inEnemyManager, Transform inTarget)
+    {
+        enemyManager = inEnemyManager;
+        m_target = inTarget;
+        m_envParams = Academy.Instance.EnvironmentParameters;
+    }
+    #endregion
 }

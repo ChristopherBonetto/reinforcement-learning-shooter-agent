@@ -6,59 +6,93 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public Enemy[] enemies;
-    public ShooterAgentBehaviour agent;
+    [SerializeField] private ShooterAgentBehaviour m_agent = null;
 
-    private int EnemyCount;
-    private EnvironmentParameters EnvironmentParameters;
-    private int startingPoint = 0;
+    private EnvironmentParameters m_envParams;
 
-    private void Start()
+    //Enemies values
+    [SerializeField] private GameObject m_enemyPrefab = null;
+    private List<Enemy> m_enemies = new List<Enemy>();
+    private int m_startingIndex = 0;
+    private int m_amountEnemies = 0;
+
+    #region Behaviour Cycle
+    private void OnEnable()
     {
-        EnvironmentParameters = Academy.Instance.EnvironmentParameters;
-        EnemyCount = Mathf.FloorToInt(EnvironmentParameters.GetWithDefault("amountEnemies", 4f));
+        m_agent.OnEnvironmentReset += ResetEnvInfos;
+    }
+    private void OnDisable()
+    {
+        m_agent.OnEnvironmentReset -= ResetEnvInfos;
+    }
+    #endregion
 
-        SetEnemiesActive();
+    private void ResetEnvInfos()
+    {
+        if(m_envParams == null)
+        {
+            m_envParams = Academy.Instance.EnvironmentParameters;
+        }
+
+        m_amountEnemies = Mathf.FloorToInt(m_envParams.GetWithDefault("arenaParam_amountEnemies", 4f));
+
+        SetEnemiesActive(m_amountEnemies);
     }
 
+    #region Enemy death - check wave cleared
     public bool isEveryEnemyDead()
     {
         int deathCounter = 0;
 
-        for (int i = startingPoint; i < EnemyCount + startingPoint; i++)
+        for (int i = m_startingIndex; i < m_amountEnemies + m_startingIndex; i++)
         {
-            if (!enemies[i].isActiveAndEnabled)
+            if (!m_enemies[i].isActiveAndEnabled)
                 deathCounter++;
         }
 
-        return deathCounter >= EnemyCount;
+        return deathCounter >= m_amountEnemies;
     }
 
     public void RegisterDeath()
     {
         if (isEveryEnemyDead())
         {
-            SetEnemiesActive();
-            agent.EndEpisode();
+            m_agent.WinWave();
         }
     }
+    #endregion
 
-    public void SetEnemiesActive()
+    public void SetEnemiesActive(int inValue)
     {
+        if(m_enemies == null || m_enemies.Count == 0)
+        {
+            SpawnEnemies(8);
+        }
+
         int counter = 0;
-        EnemyCount = Mathf.FloorToInt(EnvironmentParameters.GetWithDefault("amountEnemies", 4f));
 
-        startingPoint = Mathf.FloorToInt(UnityEngine.Random.Range(0f, enemies.Length - EnemyCount));
+        m_startingIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0f, m_enemies.Count - inValue));
 
-        foreach (var enemy in enemies)
+        foreach (var enemy in m_enemies)
         {
             enemy.gameObject.SetActive(false);
         }
 
-        for (int i = startingPoint; i < EnemyCount + startingPoint; i++)
+        for (int i = m_startingIndex; i < inValue + m_startingIndex; i++)
         {
             counter++;
-            enemies[i].gameObject.SetActive(true);
+            m_enemies[i].Respawn();
+        }
+    }
+
+    public void SpawnEnemies(int inValue)
+    {
+        for (int i = 0; i < inValue; i++)
+        {
+            Enemy enemyRef = Instantiate(m_enemyPrefab, this.transform).GetComponent<Enemy>();
+            m_enemies.Add(enemyRef);
+            enemyRef.TakeArenaInfos(this, m_agent.transform);
+            enemyRef.gameObject.SetActive(false);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using System;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShooterAgentBehaviour : Agent
@@ -23,9 +24,16 @@ public class ShooterAgentBehaviour : Agent
     [SerializeField] private float rotationSpeed = 3f;
 
     private Vector3 m_startingPos;
-    private int m_score = 0;
 
-    
+    [Header("Agent scores"),Space]
+    [SerializeField] private TextMeshProUGUI m_killsText = null;
+    private int m_killsCounter = 0;
+    [SerializeField] private TextMeshProUGUI m_lostText = null;
+    private int m_lostCounter = 0;
+    [SerializeField] private TextMeshProUGUI m_wonText = null;
+    private int m_wonCounter = 0;
+
+
     private Rigidbody m_rb;
     private EnvironmentParameters m_envParameters;
     [SerializeField] EnemyManager m_enemyManager;
@@ -129,7 +137,9 @@ public class ShooterAgentBehaviour : Agent
     }
     public void RegisterKill()
     {
-        m_score++;
+        m_killsCounter++;
+        m_killsText.text = "Kills: " + m_killsCounter.ToString();
+
         AddReward(1.0f / m_envParameters.GetWithDefault("amountEnemies", 1));
     }
     #endregion
@@ -141,10 +151,25 @@ public class ShooterAgentBehaviour : Agent
 
         if (enemy != null)
         {
-            m_enemyManager.SetEnemiesActive();
             AddReward(-1f);
+
+            m_lostCounter++;
+            m_lostText.text = "Lost:" + m_lostCounter.ToString();  
+
             EndEpisode();
         }
     }
+    #endregion
+
+    #region Won
+
+    public void WinWave()
+    {
+        this.EndEpisode();
+
+        m_wonCounter++;
+        m_wonText.text = "Won:" + m_wonCounter.ToString();
+    }
+
     #endregion
 }
