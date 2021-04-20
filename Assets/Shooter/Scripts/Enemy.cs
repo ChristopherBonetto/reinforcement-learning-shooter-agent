@@ -17,11 +17,6 @@ public class Enemy : MonoBehaviour
     private int currentHealth = 0;
     private float currentSpeed = 0;
 
-    //Position values
-    [SerializeField] private float randomRangeX_Pos = 0f;
-    [SerializeField] private float randomRangeX_Neg = 0f;
-    [SerializeField] private float randomRangeZ_Pos = 0f;
-    [SerializeField] private float randomRangeZ_Neg = 0f;
     private Vector3 startPosition;
 
     //Components and other params
@@ -41,6 +36,11 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         navAgent.SetDestination(m_target.transform.position);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetShot(currentHealth, m_target.GetComponent<ShooterAgentBehaviour>());
+        }
     }
     #endregion
 
@@ -76,8 +76,30 @@ public class Enemy : MonoBehaviour
         ResetEnvInfos();
 
         gameObject.SetActive(true);
-        
-        transform.localPosition = new Vector3(UnityEngine.Random.Range(randomRangeX_Neg, randomRangeX_Pos), startPosition.y, UnityEngine.Random.Range(randomRangeZ_Neg, randomRangeZ_Pos));
+
+        Vector3? foundLocation = FindFreeSpace(enemyManager.transform.localPosition, enemyManager.areaLenght);
+
+        if(foundLocation != null)
+        {
+            transform.localPosition = foundLocation.Value;
+        }
+        else
+        {
+            Debug.LogError("Navmesh point not found");
+            Die(m_target.GetComponent<ShooterAgentBehaviour>());
+        }
+    }
+
+    public Vector3? FindFreeSpace(Vector3 inCenter, float inRadius)
+    {
+        Vector3 randomPos = UnityEngine.Random.insideUnitSphere * inRadius + inCenter;
+
+        NavMeshHit hit;
+
+        // from randomPos find a nearest point on NavMesh surface in range of maxDistance
+        NavMesh.SamplePosition(randomPos, out hit, inRadius, NavMesh.AllAreas);
+
+        return hit.position;
     }
     #endregion
 

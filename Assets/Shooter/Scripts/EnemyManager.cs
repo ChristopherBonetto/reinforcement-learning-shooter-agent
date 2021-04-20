@@ -12,6 +12,8 @@ public class EnemyManager : MonoBehaviour
 
     //Enemies values
     [SerializeField] private GameObject m_enemyPrefab = null;
+    public float areaLenght = 28f;
+    public Vector3 EnemiesSpawnArea => new Vector3(areaLenght,0,areaLenght);
     private List<Enemy> m_enemies = new List<Enemy>();
     private int m_startingIndex = 0;
     private int m_amountEnemies = 0;
@@ -94,5 +96,11 @@ public class EnemyManager : MonoBehaviour
             enemyRef.TakeArenaInfos(this, m_agent.transform);
             enemyRef.gameObject.SetActive(false);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, EnemiesSpawnArea);
     }
 }

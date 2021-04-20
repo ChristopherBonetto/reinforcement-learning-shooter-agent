@@ -1435,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 524494102801780320, guid: dd7db945486034b4b917ba552d6d234e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 524494102801780320, guid: dd7db945486034b4b917ba552d6d234e,
         type: 3}
@@ -1547,6 +1547,16 @@ PrefabInstance:
       propertyPath: m_agent
       value: 
       objectReference: {fileID: 7683001540849713302}
+    - target: {fileID: 8349844366736001135, guid: dd7db945486034b4b917ba552d6d234e,
+        type: 3}
+      propertyPath: enemiesSpawnArea.x
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349844366736001135, guid: dd7db945486034b4b917ba552d6d234e,
+        type: 3}
+      propertyPath: enemiesSpawnArea.z
+      value: 29
+      objectReference: {fileID: 0}
     - target: {fileID: 8753906044967508721, guid: dd7db945486034b4b917ba552d6d234e,
         type: 3}
       propertyPath: m_Name
