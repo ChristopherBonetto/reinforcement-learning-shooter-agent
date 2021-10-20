@@ -1372,8 +1372,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6612475795188561870, guid: 5a9a10259cdd2c0489345497f92441c9,
         type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 4b89270db2ea801409e38c94fa9ff9bf,
+        type: 3}
+    - target: {fileID: 6612475795188561870, guid: 5a9a10259cdd2c0489345497f92441c9,
+        type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6612475795188561871, guid: 5a9a10259cdd2c0489345497f92441c9,
         type: 3}
@@ -1545,6 +1551,11 @@ PrefabInstance:
     - target: {fileID: 8349844366736001135, guid: dd7db945486034b4b917ba552d6d234e,
         type: 3}
       propertyPath: m_agent
+      value: 
+      objectReference: {fileID: 7683001540849713302}
+    - target: {fileID: 8349844366736001135, guid: dd7db945486034b4b917ba552d6d234e,
+        type: 3}
+      propertyPath: agentRef
       value: 
       objectReference: {fileID: 7683001540849713302}
     - target: {fileID: 8349844366736001135, guid: dd7db945486034b4b917ba552d6d234e,

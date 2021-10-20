@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3071429c04c86e04d80d5bd5a66e369c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_agent: {fileID: 0}
-  m_enemyPrefab: {fileID: 6702166120715755305, guid: 04bc5c4274f8c73499c3283b70c87fd8,
+  agentRef: {fileID: 0}
+  enemyPrefab: {fileID: 6702166120715755305, guid: 04bc5c4274f8c73499c3283b70c87fd8,
     type: 3}
+  areaLenght: 28

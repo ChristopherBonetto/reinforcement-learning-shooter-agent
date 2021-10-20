@@ -9,6 +9,7 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody))]
 public class ShooterAgentBehaviour : Agent
 {
+    #region Shoot - variables
     [Header("Shoot values")]
     [SerializeField] private Transform m_shootingPoint;
     [SerializeField] private int m_damage = 100;
@@ -17,14 +18,16 @@ public class ShooterAgentBehaviour : Agent
 
     private bool m_canShoot = true;
     private int m_currentStepsToShoot = 0;
+    #endregion
 
-
+    #region Agent - variables
     [Header("Agent values"),Space]
     [SerializeField] private float m_movementSpeed = 3f;
     [SerializeField] private float rotationSpeed = 3f;
-
     private Vector3 m_startingPos;
+    #endregion
 
+    #region Score - variables
     [Header("Agent scores"),Space]
     [SerializeField] private TextMeshProUGUI m_killsText = null;
     private int m_killsCounter = 0;
@@ -32,13 +35,16 @@ public class ShooterAgentBehaviour : Agent
     private int m_lostCounter = 0;
     [SerializeField] private TextMeshProUGUI m_wonText = null;
     private int m_wonCounter = 0;
+    #endregion
 
-
-    private Rigidbody m_rb;
+    #region Environment - variables
     private EnvironmentParameters m_envParameters;
-    [SerializeField] EnemyManager m_enemyManager;
-
     public event Action OnEnvironmentReset;
+    #endregion
+
+    #region Component - variables
+    private Rigidbody m_rb;
+    #endregion
 
     #region Mono Cycle
     private void FixedUpdate()
@@ -87,6 +93,7 @@ public class ShooterAgentBehaviour : Agent
 
     public override void Heuristic(float[] actionsOut)
     {
+        //Used to take inputs
         actionsOut[0] = Input.GetKey(KeyCode.P) ? 1f : 0f;
         actionsOut[1] = Input.GetAxis("Horizontal");
         actionsOut[2] = Input.GetAxis("Vertical");

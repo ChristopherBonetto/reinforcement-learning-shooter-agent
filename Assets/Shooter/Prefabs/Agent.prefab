@@ -165,6 +165,9 @@ MonoBehaviour:
     type: 3}
   m_movementSpeed: 10
   rotationSpeed: 10
+  m_killsText: {fileID: 0}
+  m_lostText: {fileID: 0}
+  m_wonText: {fileID: 0}
   m_enemyManager: {fileID: 0}
 --- !u!114 &6612475795188561869
 MonoBehaviour:

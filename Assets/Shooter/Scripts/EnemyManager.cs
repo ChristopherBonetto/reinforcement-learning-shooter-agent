@@ -6,84 +6,102 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private ShooterAgentBehaviour m_agent = null;
+    #region Environment - variables
+    [SerializeField] private ShooterAgentBehaviour agentRef = null;
+    public ShooterAgentBehaviour AgentRef => agentRef;
 
-    private EnvironmentParameters m_envParams;
+    private EnvironmentParameters envParams;
+    #endregion
 
+    #region Enemies - variables
     //Enemies values
-    [SerializeField] private GameObject m_enemyPrefab = null;
+    [SerializeField] private GameObject enemyPrefab = null;
     public float areaLenght = 28f;
     public Vector3 EnemiesSpawnArea => new Vector3(areaLenght,0,areaLenght);
-    private List<Enemy> m_enemies = new List<Enemy>();
-    private int m_startingIndex = 0;
-    private int m_amountEnemies = 0;
+    private List<Enemy> spawnedEnemies = new List<Enemy>();
+    private int startingIndex = 0;
+    private int amountEnemies = 0;
+    #endregion
+
+    //--------------------------
 
     #region Behaviour Cycle
     private void OnEnable()
     {
-        m_agent.OnEnvironmentReset += ResetEnvInfos;
+        agentRef.OnEnvironmentReset += ResetEnvInfos;
     }
     private void OnDisable()
     {
-        m_agent.OnEnvironmentReset -= ResetEnvInfos;
+        agentRef.OnEnvironmentReset -= ResetEnvInfos;
     }
     #endregion
 
+
+    //-------------------------
+
+    #region Environment - Methods
     private void ResetEnvInfos()
     {
-        if(m_envParams == null)
+        //Called when the environment change his informations (example the agent died).
+
+        if(envParams == null)
         {
-            m_envParams = Academy.Instance.EnvironmentParameters;
+            envParams = Academy.Instance.EnvironmentParameters;
         }
 
-        m_amountEnemies = Mathf.FloorToInt(m_envParams.GetWithDefault("arenaParam_amountEnemies", 4f));
+        //Used to take the current enemies amount value from the environment params.
+        //The environment use a curriculum pattern that change the amount of enemies value based on the agent's growth.
+        //The section about this value on the curriculum is called as arenaParam_amountEnemies.
+        amountEnemies = Mathf.FloorToInt(envParams.GetWithDefault("arenaParam_amountEnemies", 4f));
 
-        SetEnemiesActive(m_amountEnemies);
+        SetEnemiesActive(amountEnemies);
     }
+    #endregion
 
     #region Enemy death - check wave cleared
     public bool isEveryEnemyDead()
     {
         int deathCounter = 0;
 
-        for (int i = m_startingIndex; i < m_amountEnemies + m_startingIndex; i++)
+        for (int i = startingIndex; i < amountEnemies + startingIndex; i++)
         {
-            if (!m_enemies[i].isActiveAndEnabled)
+            if (!spawnedEnemies[i].isActiveAndEnabled)
                 deathCounter++;
         }
 
-        return deathCounter >= m_amountEnemies;
+        return deathCounter >= amountEnemies;
     }
 
     public void RegisterDeath()
     {
         if (isEveryEnemyDead())
         {
-            m_agent.WinWave();
+            agentRef.WinWave();
         }
     }
     #endregion
 
+    #region Enemies spawn
     public void SetEnemiesActive(int inValue)
     {
-        if(m_enemies == null || m_enemies.Count == 0)
+        //Used to initialize and spawn enemies when called the first time. 
+        if(spawnedEnemies == null || spawnedEnemies.Count == 0)
         {
             SpawnEnemies(8);
         }
 
         int counter = 0;
+        startingIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0f, spawnedEnemies.Count - inValue));
 
-        m_startingIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0f, m_enemies.Count - inValue));
-
-        foreach (var enemy in m_enemies)
+        foreach (var enemy in spawnedEnemies)
         {
             enemy.gameObject.SetActive(false);
         }
 
-        for (int i = m_startingIndex; i < inValue + m_startingIndex; i++)
+        for (int i = startingIndex; i < inValue + startingIndex; i++)
         {
             counter++;
-            m_enemies[i].Respawn();
+            spawnedEnemies[i].Respawn();
         }
     }
 
@@ -91,16 +109,19 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < inValue; i++)
         {
-            Enemy enemyRef = Instantiate(m_enemyPrefab, this.transform).GetComponent<Enemy>();
-            m_enemies.Add(enemyRef);
-            enemyRef.TakeArenaInfos(this, m_agent.transform);
+            Enemy enemyRef = Instantiate(enemyPrefab, this.transform).GetComponent<Enemy>();
+            spawnedEnemies.Add(enemyRef);
+            enemyRef.TakeArenaInfos(this, AgentRef);
             enemyRef.gameObject.SetActive(false);
         }
     }
+    #endregion
 
+    #region Utils
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, EnemiesSpawnArea);
     }
+    #endregion
 }

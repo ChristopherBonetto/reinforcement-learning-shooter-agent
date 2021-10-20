@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 0.5
+    agentClimb: 0.05
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -167,7 +167,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -384,7 +384,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -508,7 +508,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -620,7 +620,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -815,7 +815,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -927,7 +927,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -1051,7 +1051,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -1163,7 +1163,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -1446,6 +1446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
       propertyPath: m_CarveOnlyStationary
       value: 0
       objectReference: {fileID: 0}
@@ -1644,7 +1649,8 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 901920822}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
 --- !u!20 &901920821 stripped
 Camera:
@@ -1822,6 +1828,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Carve
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
@@ -2028,7 +2039,8 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 1060548264}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
 --- !u!20 &1060548263 stripped
 Camera:
@@ -2110,7 +2122,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2222,7 +2234,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2334,7 +2346,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2446,7 +2458,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2570,7 +2582,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -2802,6 +2814,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
       propertyPath: m_CarveOnlyStationary
       value: 0
       objectReference: {fileID: 0}
@@ -3000,7 +3017,8 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 1612765258}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
 --- !u!20 &1612765257 stripped
 Camera:
@@ -3168,6 +3186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Carve
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
@@ -3369,7 +3392,8 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 1627293877}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
 --- !u!20 &1627293876 stripped
 Camera:
@@ -3445,7 +3469,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -3652,6 +3676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
       propertyPath: m_CarveOnlyStationary
       value: 0
       objectReference: {fileID: 0}
@@ -3845,7 +3874,8 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 1974207308}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
 --- !u!20 &1974207307 stripped
 Camera:
@@ -4004,7 +4034,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -4221,6 +4251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
+      propertyPath: m_Extents.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414754776366330678, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
       propertyPath: m_CarveOnlyStationary
       value: 0
       objectReference: {fileID: 0}
@@ -4349,6 +4384,17 @@ PrefabInstance:
       propertyPath: m_enemyManager
       value: 
       objectReference: {fileID: 696198808}
+    - target: {fileID: 7683001540849713303, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 4b89270db2ea801409e38c94fa9ff9bf,
+        type: 3}
+    - target: {fileID: 7683001540849713303, guid: cdf0bef330c28f145bfa21ee123044bc,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7683001540849713308, guid: cdf0bef330c28f145bfa21ee123044bc,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4409,5 +4455,6 @@ PrefabInstance:
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 696198808}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5630577959922572756, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf0bef330c28f145bfa21ee123044bc, type: 3}
