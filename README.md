@@ -113,7 +113,7 @@ The historical setup used PPO with three 512-unit hidden layers, extrinsic rewar
 
 - [Thesis and training showcase](https://www.youtube.com/watch?v=rLb58odh8Fg)
 
-The existing video is a longer academic demonstration. A shorter portfolio-focused edit showing training progression, curriculum difficulty, ray perception, and final inference is planned.
+The video is a complete academic demonstration of the project, covering the training process, curriculum progression, and the agent running in Unity.
 
 ## 🚀 Running the Project
 
